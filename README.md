@@ -7,6 +7,13 @@ This project would be a part of [Hack-R-Play](https://hustles.reactplay.io/hackr
 
 [Project Idea](https://hustles.reactplay.io/hackrplay/2022/ideas/014e495d-0102-4333-a58c-b1fb8a55af48)
 
+## Tech stack
+
+- Next.JS
+- nHost (backend)
+- tailwind?
+-
+
 ## Next.JS Application
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
