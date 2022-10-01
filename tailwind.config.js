@@ -5,7 +5,21 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    screens: {
+      sm: "576px",
+      md: "768px",
+      lg: "992px",
+      xl: "1200px",
+      "2xl": "1440px",
+    },
+    extend: {
+      minHeight: {
+        body: "85vh",
+      },
+    },
+  },
+  variants: {
+    extend: { opacity: ["disabled"] },
   },
   plugins: [],
 };
