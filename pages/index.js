@@ -7,10 +7,7 @@ export default function Home() {
       <Head>
         <title>Welcome to FINSAVER</title>
       </Head>
-      <section className="min-h-body">
-        <Welcome />
-      </section>
-      <Footer />
+      <Welcome />
     </div>
   );
 }
