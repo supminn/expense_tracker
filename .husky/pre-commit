@@ -9,7 +9,7 @@ npm run check-format ||
 )
 
 # Check ESLint Standards
-npm run check-lint ||
+npm run lint ||
 (
         echo 'ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
         false; 

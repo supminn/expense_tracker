@@ -4,7 +4,7 @@ export const Footer = () => {
       <h3 className=" text-center text-green-50 font-semibold mb-2 text-xl">
         Made with <i className="fas fa-heart text-amber-300"></i> by{" "}
         <span className="text-amber-300">Supminn</span>
-        </h3>
+      </h3>
       <div className="w-max m-auto">
         <a
           className="p-2 text-green-50"
