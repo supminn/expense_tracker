@@ -46,7 +46,7 @@ export default function Register() {
   return signed ? (
     <Registered />
   ) : (
-    <div className="shadow-xl pb-1 m-auto mt-10 bg-gray-100 w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center">
+    <div className="shadow-xl p-2 m-auto mt-10 bg-gray-100 w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center">
       <h2 className="text-2xl font-medium m-3 text-green-900">
         Sign <span className="text-amber-700">up</span>
       </h2>

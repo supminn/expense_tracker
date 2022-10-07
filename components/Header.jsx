@@ -17,7 +17,7 @@ export const Header = () => {
           <a className="fas fa-search fa-lg px-2 text-green-100"></a>
         </Link>
         <Link href={"#"}>
-          <a className="fas fa-bell fa-lg px-2 text-green-100 relative"></a>
+          <a className="fas fa-solid fa-chart-line fa-lg px-2 text-green-100 relative"></a>
         </Link>
         <Link href={"#"}>
           <a className="fas fa-user fa-lg px-2 text-green-100"></a>
