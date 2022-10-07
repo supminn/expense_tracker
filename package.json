@@ -8,10 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "lint-staged": {
-      "*.{js, jsx, ts, tsx}": "eslint --cache --fix",
-      "*.{js, css, md}": "prettier --write"
-    }
+    "lint-staged": "eslint --cache --fix",
+    "prettier-staged": "prettier --write"
   },
   "dependencies": {
     "dayjs": "^1.11.5",
