@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { Welcome } from "../components";
-import React from "react";
 
 export default function Home() {
   return (
