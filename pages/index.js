@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { Footer, Welcome } from "../components";
+import { Welcome } from "../components";
+import React from "react";
 
 export default function Home() {
   return (
