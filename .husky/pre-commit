@@ -2,7 +2,7 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Check Prettier standards
-npm run format ||
+npm run check-format ||
 (
     echo 'Prettier Check Failed. Run npm run format, add changes and try commit again.';
     false;
