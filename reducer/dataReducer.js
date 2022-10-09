@@ -1,15 +1,18 @@
 import dayjs from "dayjs";
-import { formatedDate } from "../utilities";
+import { DataActions } from "./actions";
 
 export const initialDataState = {
-  selectedDate: formatedDate(dayjs()),
+  selectedDate: dayjs(),
   incomeData: [],
   expenseData: [],
-  total: 0,
+  balance: 0,
 };
 
 export const dataReducer = (state, { type, payload }) => {
   switch (type) {
+    case DataActions.SET_SELECTED_DATE: {
+      return { ...state, selectedDate: dayjs(payload) };
+    }
     default:
       return state;
   }
