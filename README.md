@@ -9,10 +9,9 @@ This project would be a part of [Hack-R-Play](https://hustles.reactplay.io/hackr
 
 ## Tech stack
 
-- Next.JS
-- nHost (backend)
-- tailwind?
--
+- Next.JS for user-facing application
+- nHost for data storage and authentication
+- TailwindCSS for UI styling
 
 ## Next.JS Application
 
