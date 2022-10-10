@@ -4,7 +4,7 @@ import { formatedDate } from "../utilities";
 
 export const YearlyReport = () => {
   const {
-    dataState: { selectedDate, balance },
+    dataState: { selectedDate },
     dataDispatch,
   } = useDataContext();
   return (
@@ -26,7 +26,6 @@ export const YearlyReport = () => {
           >
             {formatedDate(selectedDate, "YYYY")}
           </section>
-          <span>Balance: ₹{balance.toFixed(2)}</span>
           <i
             onClick={() =>
               dataDispatch({
