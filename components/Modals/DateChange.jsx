@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useDataContext } from "../context/dataContext";
-import { DataActions } from "../reducer/actions";
-import { formatedDate } from "../utilities";
+import { useDataContext } from "../../context/dataContext";
+import { DataActions } from "../../reducer/actions";
+import { formatedDate } from "../../utilities";
 
-export const InputModal = ({ setShowModal }) => {
+export const DateChangeModal = ({ setShowModal }) => {
   const {
     dataState: { selectedDate },
     dataDispatch,
@@ -33,7 +33,7 @@ export const InputModal = ({ setShowModal }) => {
                   className="text-xl font-bold leading-6 text-gray-900"
                   id="modal-title"
                 >
-                  Input Modal (Work In Progress)
+                  Choose a Date
                 </h3>
                 <div className="mt-2">
                   <input
