@@ -1,3 +1,9 @@
+import localeData from "dayjs/plugin/localeData";
+import dayjs from "dayjs";
+
+dayjs.extend(localeData);
+const monthData = dayjs.months();
+
 const formatedDate = (date, format = "") =>
   format === "" ? date.format("DD - MMM - YYYY") : date.format(format);
 
@@ -12,4 +18,4 @@ const generateRandomString = (
   return result;
 };
 
-export { formatedDate, generateRandomString };
+export { formatedDate, generateRandomString, monthData };

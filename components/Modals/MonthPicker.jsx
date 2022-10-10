@@ -1,12 +1,7 @@
-import localeData from "dayjs/plugin/localeData";
-import dayjs from "dayjs";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDataContext } from "../../context/dataContext";
 import { DataActions } from "../../reducer/actions";
-import { formatedDate } from "../../utilities";
-
-dayjs.extend(localeData);
-const monthData = dayjs.months();
+import { formatedDate, monthData } from "../../utilities";
 
 export const MonthPickerModal = ({ setShowModal }) => {
   const {
