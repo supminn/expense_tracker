@@ -200,17 +200,17 @@ const DataItems = ({ list, editRecord, removeRecord }) => {
             {data.desc && (
               <i
                 onClick={() => showDescription(data)}
-                className="fa-solid fa-notes-medical ml-2"
+                className="fa-solid fa-notes-medical ml-2 cursor-pointer"
               ></i>
             )}
           </span>
           <div>
-            <span onClick={() => editRecord(data)}>
+            <span onClick={() => editRecord(data)} className="cursor-pointer">
               ₹{data.amount.toFixed(2)}
             </span>
             <i
               onClick={() => removeRecord(data)}
-              className="fa-solid fa-trash pl-2 text-red-700"
+              className="fa-solid fa-trash pl-2 text-red-700 cursor-pointer"
             ></i>
           </div>
         </div>

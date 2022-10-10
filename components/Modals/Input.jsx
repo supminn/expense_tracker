@@ -51,7 +51,7 @@ export const InputModal = ({ setShowModal, initialData }) => {
                   className="text-xl font-bold leading-6 text-gray-900"
                   id="modal-title"
                 >
-                  Input Modal
+                  Add Data
                 </h3>
                 <nav className="p-4 flex justify-between">
                   <button

@@ -43,8 +43,8 @@ export const Landing = () => {
         </button>
       </nav>
       {route === "daily" && <DailyReport />}
-      {route === "monthly" && <MonthlyReport />}
-      {route === "yearly" && <YearlyReport />}
+      {route === "monthly" && <MonthlyReport setRoute={setRoute} />}
+      {route === "yearly" && <YearlyReport setRoute={setRoute} />}
     </>
   );
 };
