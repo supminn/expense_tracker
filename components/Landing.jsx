@@ -15,7 +15,7 @@ export const Landing = () => {
           onClick={() => setRoute("daily")}
           className={`p-2 mx-2 rounded-md cursor-pointer ${
             route === "daily"
-              ? "bg-green-800 text-green-100"
+              ? "bg-green-800 text-green-200"
               : "bg-amber-200 text-green-800"
           }`}
         >
@@ -25,7 +25,7 @@ export const Landing = () => {
           onClick={() => setRoute("monthly")}
           className={`p-2 mx-2 rounded-md cursor-pointer ${
             route === "monthly"
-              ? "bg-green-800 text-green-100"
+              ? "bg-green-800 text-green-200"
               : "bg-amber-200 text-green-800"
           }`}
         >
@@ -35,7 +35,7 @@ export const Landing = () => {
           onClick={() => setRoute("yearly")}
           className={`p-2 mx-2 rounded-md cursor-pointer ${
             route === "yearly"
-              ? "bg-green-800 text-green-100"
+              ? "bg-green-800 text-green-200"
               : "bg-amber-200 text-green-800"
           }`}
         >

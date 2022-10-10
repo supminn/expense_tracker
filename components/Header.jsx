@@ -13,9 +13,9 @@ export const Header = () => {
         </h2>
       </div>
       <div className="flex justify-around">
-        <Link href={"#"}>
+        {/* <Link href={"#"}>
           <a className="fas fa-search fa-lg px-2 text-green-100"></a>
-        </Link>
+        </Link> */}
         <Link href={"#"}>
           <a className="fas fa-solid fa-chart-line fa-lg px-2 text-green-100 relative"></a>
         </Link>
