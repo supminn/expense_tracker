@@ -77,32 +77,34 @@ export const MonthlyReport = ({ setRoute }) => {
           ></i>
         </section>
       </main>
-      {dataList.length > 0 &&
-        dataList.map((date) => (
-          <section
-            key={date}
-            className="p-2 border-2 bg-gray-200 m-2 cursor-pointer hover:bg-gray-300 hover:shadow-sm"
-            onClick={() => gotoDate(date)}
-          >
-            <h3 className="text-center font-bold border-b-2 border-gray-400 mb-2">
-              {date}
-            </h3>
-            <section className="flex justify-between px-2">
-              <MonthlyItem
-                title="Income"
-                dataList={incomeData.filter(
-                  (data) => formatedDate(data.date, "DD-MMM-YYYY") === date
-                )}
-              />
-              <MonthlyItem
-                title="Expense"
-                dataList={expenseData.filter(
-                  (data) => formatedDate(data.date, "DD-MMM-YYYY") === date
-                )}
-              />
+      <div className="md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {dataList.length > 0 &&
+          dataList.map((date) => (
+            <section
+              key={date}
+              className="p-2 border-2 bg-gray-200 m-2 cursor-pointer hover:bg-gray-300 hover:shadow-sm"
+              onClick={() => gotoDate(date)}
+            >
+              <h3 className="text-center font-bold border-b-2 border-gray-400 mb-2">
+                {date}
+              </h3>
+              <section className="flex justify-between px-2">
+                <MonthlyItem
+                  title="Income"
+                  dataList={incomeData.filter(
+                    (data) => formatedDate(data.date, "DD-MMM-YYYY") === date
+                  )}
+                />
+                <MonthlyItem
+                  title="Expense"
+                  dataList={expenseData.filter(
+                    (data) => formatedDate(data.date, "DD-MMM-YYYY") === date
+                  )}
+                />
+              </section>
             </section>
-          </section>
-        ))}
+          ))}
+      </div>
     </>
   );
 };

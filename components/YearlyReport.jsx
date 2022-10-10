@@ -34,7 +34,7 @@ export const YearlyReport = ({ setRoute }) => {
           ></i>
         </section>
       </main>
-      <section className="p-2">
+      <section className="p-2 md:px-4 lg:px-8">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-sm text-gray-700  bg-gray-50 ">
             <tr>
@@ -104,7 +104,7 @@ const MonthlySummary = ({ month, setRoute }) => {
   };
   return (
     <tr
-      className="bg-white border-b cursor-pointer hover:bg-gray-200"
+      className="bg-white border-b cursor-pointer hover:bg-gray-200 hover:text-black "
       onClick={() => goToMonth(month)}
     >
       <td>{month}</td>
