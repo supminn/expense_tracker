@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { LogoutModal } from "./Modals/Logout";
 
 export const Header = () => {
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   return (
     <nav className="z-10 flex justify-between items-center h-16 sticky top-0 mb-1 p-4 pl-3 bg-green-900 rounded-b-lg">
       <div className="flex justify-center items-center cursor-pointer ">
@@ -20,8 +23,12 @@ export const Header = () => {
           <a className="fas fa-solid fa-chart-line fa-lg px-2 text-green-100 relative"></a>
         </Link>
         <Link href={"#"}>
-          <a className="fas fa-user fa-lg px-2 text-green-100"></a>
+          <a
+            onClick={() => setShowLogoutModal(true)}
+            className="fas fa-user fa-lg px-2 text-green-100"
+          ></a>
         </Link>
+        {showLogoutModal && <LogoutModal setShowModal={setShowLogoutModal} />}
       </div>
     </nav>
   );

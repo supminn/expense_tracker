@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export const Password = ({ userValue, setCredentials }) => {
+export const Password = ({
+  userValue,
+  setCredentials,
+  placeholder = "Password",
+  label = "password",
+}) => {
   const [viewPwd, setViewPwd] = useState(false);
 
   return (
@@ -13,10 +18,10 @@ export const Password = ({ userValue, setCredentials }) => {
         onChange={(e) =>
           setCredentials((credentials) => ({
             ...credentials,
-            password: e.target.value,
+            [label]: e.target.value,
           }))
         }
-        placeholder="Password"
+        placeholder={placeholder}
       />
       <span
         className="p-2 bg-green-900 text-green-50 rounded-sm cursor-pointer"
