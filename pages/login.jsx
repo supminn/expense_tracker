@@ -1,16 +1,28 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { Password, SecondaryButton } from "../components";
-import Loader from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
+import { useAuthContext } from "../context/authProvider";
 
 export default function Login() {
-  const [{ username, password }, setCredentials] = useState({
-    username: "",
+  const router = useRouter();
+  const [{ email, password }, setCredentials] = useState({
+    email: "",
     password: "",
   });
-  const loginHandler = (event) => {
+  const {
+    userSignIn,
+    authState: { isLoading, error },
+  } = useAuthContext();
+
+  const loginHandler = async (event) => {
     event.preventDefault();
-    console.log("logging creds", username, password);
+    const { isSuccess } = await userSignIn({ email, password });
+    if (isSuccess) {
+      router.push("/");
+    }
   };
+
   return (
     <div className="shadow-xl p-2 m-auto mt-10 w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center bg-gray-100">
       <h2 className="text-2xl font-medium m-3 text-green-900">
@@ -22,20 +34,20 @@ export default function Login() {
       >
         <div className="p-2">
           <span className="p-2 bg-green-900 text-green-50 rounded-sm">
-            <i className="fas fa-at fa-lg"></i>
+            <i className="fas fa-envelope fa-lg"></i>
           </span>
           <input
             required
-            className="p-2 rounded-sm border border-transparent  focus:outline-none focus:ring-2 focus:ring-green-900 w-3/4"
-            type="text"
-            value={username}
+            className="p-2 rounded-sm border border-transparent focus:outline-none focus:ring-2 focus:ring-green-900 w-3/4"
+            type="email"
+            value={email}
             onChange={(e) =>
               setCredentials((credentials) => ({
                 ...credentials,
-                username: e.target.value,
+                email: e.target.value,
               }))
             }
-            placeholder="Username"
+            placeholder="Email address"
           />
         </div>
         <Password userValue={password} setCredentials={setCredentials} />
@@ -50,16 +62,14 @@ export default function Login() {
           onClick={() =>
             setCredentials((credentials) => ({
               ...credentials,
-              username: "tester",
-              password: "Testing1",
+              email: "tester@mail.com",
+              password: "Testing!h3r3",
             }))
           }
         >
           Use test credentials
         </p>
-        {/* {auth.error && (
-          <p className="text-red-600 text-lg pt-3">{auth.error}</p>
-        )} */}
+        {error && <p className="text-red-600 text-lg pt-3">{error}</p>}
       </form>
 
       <div className="p-2 md:w-3/4 lg:w-8/12 m-auto">
@@ -67,15 +77,17 @@ export default function Login() {
         <SecondaryButton text="Register" href="/register" />
       </div>
 
-      {/* {auth.loading && (
-        <Loader
-          className="m-auto w-min"
-          type="Oval"
-          color="#1e3a8a"
-          height={40}
-          width={40}
-        />
-      )} */}
+      {isLoading && (
+        <div className="flex justify-center">
+          <RotatingLines
+            strokeColor="#166534"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="50"
+            visible={true}
+          />
+        </div>
+      )}
     </div>
   );
 }

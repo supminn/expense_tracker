@@ -1,18 +1,23 @@
 import { useState } from "react";
-import Loader from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
 import { Password, SecondaryButton } from "../components";
+import { useAuthContext } from "../context/authProvider";
 
+const initialCredentials = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  error: "",
+};
 export default function Register() {
   const signed = false;
-  const [{ username, password, email, name, error }, setCredentials] = useState(
-    {
-      name: "",
-      email: "",
-      username: "",
-      password: "",
-      error: "",
-    }
-  );
+  const [credentials, setCredentials] = useState(initialCredentials);
+  const { password, confirmPassword, email, name, error } = credentials;
+  const {
+    registerNewUser,
+    authState: { isLoading, error: registrationError },
+  } = useAuthContext();
 
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -22,16 +27,15 @@ export default function Register() {
         error:
           "Password must contain at least 8 characters, at least 1 number and both lower and uppercase letters.",
       }));
-    } else {
-      dispatch(startLoadingAuth());
-      await dispatch(registerUser({ username, password, email, name }));
+    } else if (password !== confirmPassword) {
       setCredentials((data) => ({
-        name: "",
-        email: "",
-        username: "",
-        password: "",
-        error: "",
+        ...data,
+        error: "Password and confirm password do not match",
       }));
+    } else {
+      const res = await registerNewUser({ password, email, name });
+      console.log("registration res", res);
+      setCredentials(initialCredentials);
     }
   };
 
@@ -74,24 +78,6 @@ export default function Register() {
         </div>
         <div className="p-2">
           <span className="p-2 bg-green-900 text-green-50 rounded-sm">
-            <i className="fas fa-at fa-lg"></i>
-          </span>
-          <input
-            required
-            className="p-2 rounded-sm border border-transparent  focus:outline-none focus:ring-2 focus:ring-green-900 w-3/4"
-            type="text"
-            value={username}
-            onChange={(e) =>
-              setCredentials((credentials) => ({
-                ...credentials,
-                username: e.target.value,
-              }))
-            }
-            placeholder="Username"
-          />
-        </div>
-        <div className="p-2">
-          <span className="p-2 bg-green-900 text-green-50 rounded-sm">
             <i className="fas fa-envelope fa-lg"></i>
           </span>
           <input
@@ -109,6 +95,12 @@ export default function Register() {
           />
         </div>
         <Password userValue={password} setCredentials={setCredentials} />
+        <Password
+          userValue={confirmPassword}
+          setCredentials={setCredentials}
+          label="confirmPassword"
+          placeholder="Confirm Password"
+        />
         {error && <p className="text-red-600 pt-3">{error}</p>}
         <button
           type="submit"
@@ -116,22 +108,24 @@ export default function Register() {
         >
           Register
         </button>
-        {/* {auth.error && (
-          <p className="text-red-600 text-lg pt-3">{auth.error}</p>
-        )} */}
+        {registrationError && (
+          <p className="text-red-600 text-lg pt-3">{registrationError}</p>
+        )}
       </form>
       <div className="text-lg font-semibold p-2 md:w-3/4 lg:w-8/12 m-auto">
         Already a member? <SecondaryButton text="Login" href="/login" />
       </div>
-      {/* {auth.loading && (
-        <Loader
-          className="m-auto w-min"
-          type="Oval"
-          color="#1e3a8a"
-          height={40}
-          width={40}
-        />
-      )} */}
+      {isLoading && (
+        <div className="flex justify-center">
+          <RotatingLines
+            strokeColor="#166534"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="50"
+            visible={true}
+          />
+        </div>
+      )}
     </div>
   );
 }
