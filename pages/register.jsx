@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { Password, SecondaryButton } from "../components";
 import { useAuthContext } from "../context/authProvider";
@@ -11,13 +12,19 @@ const initialCredentials = {
   error: "",
 };
 export default function Register() {
-  const signed = false;
+  const router = useRouter();
   const [credentials, setCredentials] = useState(initialCredentials);
   const { password, confirmPassword, email, name, error } = credentials;
   const {
     registerNewUser,
-    authState: { isLoading, error: registrationError },
+    authState: { isLoading, error: registrationError, authToken },
   } = useAuthContext();
+
+  useEffect(() => {
+    if (authToken) {
+      router.push("/");
+    }
+  }, [authToken, router]);
 
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -33,9 +40,10 @@ export default function Register() {
         error: "Password and confirm password do not match",
       }));
     } else {
-      const res = await registerNewUser({ password, email, name });
-      console.log("registration res", res);
-      setCredentials(initialCredentials);
+      const { isSuccess } = await registerNewUser({ password, email, name });
+      if (isSuccess) {
+        router.reload();
+      }
     }
   };
 
@@ -47,9 +55,7 @@ export default function Register() {
       return false;
     else return true;
   };
-  return signed ? (
-    <Registered />
-  ) : (
+  return (
     <div className="shadow-xl p-2 m-auto mt-10 bg-gray-100 w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center">
       <h2 className="text-2xl font-medium m-3 text-green-900">
         Sign <span className="text-amber-700">up</span>
@@ -129,15 +135,3 @@ export default function Register() {
     </div>
   );
 }
-
-const Registered = () => {
-  const userDispatch = useDispatch();
-  return (
-    <div className="shadow-xl pb-1 m-auto w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center min-h-body">
-      <h3 className="text-2xl p-4">
-        Thank you for signing up on <b>SupSocial</b>.
-      </h3>
-      <SecondaryButton text="Login to continue" href="/login" />
-    </div>
-  );
-};

@@ -1,13 +1,14 @@
+import { useUserId } from "@nhost/react";
 import { useState } from "react";
 import { useDataContext } from "../../context/dataContext";
-import { DataActions } from "../../reducer/actions";
-import { generateRandomString } from "../../utilities";
+import { addNewItem, updateItem } from "../../services";
 
 export const InputModal = ({ setShowModal, initialData }) => {
   const {
     dataState: { selectedDate },
     dataDispatch,
   } = useDataContext();
+  const userId = useUserId();
   const [data, setData] = useState(initialData);
 
   const setDataHandler = (tag, value) => {
@@ -16,18 +17,16 @@ export const InputModal = ({ setShowModal, initialData }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const type = data.id
-      ? DataActions.UPDATE_INCOME_EXPENSE
-      : data.route === "expense"
-      ? DataActions.ADD_EXPENSE
-      : DataActions.ADD_INCOME;
-    const payload = {
+    const item = {
       ...data,
       date: selectedDate,
       amount: Number(data.amount),
-      id: initialData.id || generateRandomString(),
     };
-    dataDispatch({ type, payload });
+    if (data.id) {
+      updateItem(item, userId, dataDispatch);
+    } else {
+      addNewItem(item, userId, dataDispatch);
+    }
     setShowModal(false);
   };
   return (
@@ -100,7 +99,9 @@ export const InputModal = ({ setShowModal, initialData }) => {
                   rows={3}
                   cols={23}
                   placeholder="Description"
-                  onChange={(e) => setDataHandler("desc", e.target.value)}
+                  onChange={(e) =>
+                    setDataHandler("description", e.target.value)
+                  }
                 />
               </div>
             </div>

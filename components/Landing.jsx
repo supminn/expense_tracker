@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useUserId } from "@nhost/react";
+import { useEffect, useState } from "react";
+import { useDataContext } from "../context/dataContext";
+import { DataActions } from "../reducer/actions";
+import { getExpenseData, getIncomeData } from "../services";
 import { DailyReport } from "./DailyReport";
 import { Header } from "./Header";
 import { MonthlyReport } from "./MonthlyReport";
@@ -6,7 +10,20 @@ import { YearlyReport } from "./YearlyReport";
 
 export const Landing = () => {
   const [route, setRoute] = useState("daily");
+  const { dataDispatch } = useDataContext();
+  const userId = useUserId();
 
+  useEffect(() => {
+    (async () => {
+      if (userId) {
+        dataDispatch({ type: DataActions.SET_LOADER, payload: true });
+        await getIncomeData(userId, dataDispatch);
+        await getExpenseData(userId, dataDispatch);
+        dataDispatch({ type: DataActions.SET_LOADER, payload: false });
+      }
+    })();
+  }, [userId, dataDispatch]);
+  // TODO: Add Loader
   return (
     <>
       <Header />

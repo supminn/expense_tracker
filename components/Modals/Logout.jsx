@@ -42,6 +42,20 @@ export const LogoutModal = ({ setShowModal }) => {
                   Are you sure you want to Logout?
                 </h3>
               </div>
+              <div>
+                {isLoading && (
+                  <div className="flex justify-center">
+                    <RotatingLines
+                      strokeColor="#166534"
+                      strokeWidth="5"
+                      animationDuration="0.75"
+                      width="30"
+                      visible={true}
+                    />
+                  </div>
+                )}
+                {error && <p className="text-red-600 py-3">{error}</p>}
+              </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
@@ -58,18 +72,6 @@ export const LogoutModal = ({ setShowModal }) => {
                 Cancel
               </button>
             </div>
-            {isLoading && (
-              <div className="flex justify-center">
-                <RotatingLines
-                  strokeColor="#166534"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="30"
-                  visible={true}
-                />
-              </div>
-            )}
-            {error && <p className="text-red-600 py-3">{error}</p>}
           </form>
         </div>
       </div>
