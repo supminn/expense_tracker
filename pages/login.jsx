@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Password, SecondaryButton } from "../components";
 import { RotatingLines } from "react-loader-spinner";
@@ -12,8 +12,14 @@ export default function Login() {
   });
   const {
     userSignIn,
-    authState: { isLoading, error },
+    authState: { isLoading, error, authToken },
   } = useAuthContext();
+
+  useEffect(() => {
+    if (authToken) {
+      router.push("/");
+    }
+  }, [authToken, router]);
 
   const loginHandler = async (event) => {
     event.preventDefault();

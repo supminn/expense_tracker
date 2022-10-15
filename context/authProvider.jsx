@@ -4,29 +4,32 @@ import {
   useSignInEmailPassword,
   useSignOut,
   useUserData,
+  useAccessToken,
 } from "@nhost/nextjs";
+import { nhost } from "../services";
 import { authReducer, initialAuthState } from "../reducer/authReducer";
 import { AuthActions } from "../reducer/actions";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children, nhost }) => {
+const AuthProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(authReducer, initialAuthState);
   const { signUpEmailPassword } = useSignUpEmailPassword();
   const { signInEmailPassword } = useSignInEmailPassword();
   const { signOut } = useSignOut();
 
   const user = useUserData();
-  const authToken = nhost.auth.getAccessToken();
+  const accessToken = useAccessToken();
 
   useEffect(() => {
-    if (authToken && user) {
+    if (accessToken && user) {
+      // add loader and show in UI
       authDispatch({
         type: AuthActions.SET_USER_DATA,
-        payload: { user: user, authToken: authToken },
+        payload: { user: user, authToken: accessToken },
       });
     }
-  }, [user, authToken]);
+  }, [user, accessToken]);
 
   const registerNewUser = async ({ password, email, name }) => {
     authDispatch({ type: AuthActions.SET_LOADER, payload: true });

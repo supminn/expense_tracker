@@ -1,7 +1,9 @@
+import { useUserId } from "@nhost/react";
 import dayjs from "dayjs";
 import { useMemo, useRef, useState } from "react";
 import { useDataContext } from "../context/dataContext";
 import { DataActions } from "../reducer/actions";
+import { deleteItem } from "../services";
 import { formatedDate } from "../utilities";
 import { DateChangeModal } from "./Modals/DateChange";
 import { InputModal } from "./Modals/Input";
@@ -14,7 +16,7 @@ export const DailyReport = () => {
     dataState: { selectedDate, incomeData: income, expenseData: expense },
     dataDispatch,
   } = useDataContext();
-
+  const userId = useUserId();
   const [isToday, monthYear, date] = useMemo(() => {
     return [
       formatedDate(dayjs()) === formatedDate(selectedDate),
@@ -65,7 +67,7 @@ export const DailyReport = () => {
       route: "expense",
       name: "",
       amount: "",
-      desc: "",
+      description: "",
     };
     setShowInputModal(true);
   };
@@ -75,12 +77,8 @@ export const DailyReport = () => {
     setShowInputModal(true);
   };
 
-  const removeRecord = (data) => {
-    const type =
-      data.route === "expense"
-        ? DataActions.REMOVE_EXPENSE
-        : DataActions.REMOVE_INCOME;
-    dataDispatch({ type, payload: data });
+  const removeRecord = async (data) => {
+    await deleteItem(data, userId, dataDispatch);
   };
 
   return (
@@ -179,7 +177,7 @@ const DataItems = ({ list, editRecord, removeRecord }) => {
   const [descId, setDescId] = useState("");
 
   const showDescription = (data) => {
-    if (data.id === descId || data.desc === "") {
+    if (data.id === descId || data.description === "") {
       setDescId("");
     } else {
       setDescId(data.id);
@@ -197,7 +195,7 @@ const DataItems = ({ list, editRecord, removeRecord }) => {
         <div className="flex justify-between ">
           <span>
             {data.name}{" "}
-            {data.desc && (
+            {data.description && (
               <i
                 onClick={() => showDescription(data)}
                 className="fa-solid fa-notes-medical ml-2 cursor-pointer"
@@ -215,7 +213,7 @@ const DataItems = ({ list, editRecord, removeRecord }) => {
           </div>
         </div>
         {descId === data.id && (
-          <div className="italic text-sm">{data.desc}</div>
+          <div className="italic text-sm">{data.description}</div>
         )}
       </section>
     ))
