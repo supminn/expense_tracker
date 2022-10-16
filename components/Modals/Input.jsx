@@ -88,6 +88,8 @@ export const InputModal = ({ setShowModal, initialData }) => {
                   <input
                     className="text-gray-800 border-2 p-2 m-2 rounded-md"
                     type="number"
+                    min={1}
+                    step={0.01}
                     placeholder="Amount in ₹"
                     required
                     value={data.amount}

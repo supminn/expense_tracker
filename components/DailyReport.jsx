@@ -54,10 +54,10 @@ export const DailyReport = () => {
   const balance = useMemo(
     () =>
       income
-        .filter((data) => selectedDate.diff(data.date, "day") >= 0)
+        .filter((data) => selectedDate.diff(data.date, "hour") >= 0)
         .reduce((prev, curr) => prev + curr.amount, 0) -
       expense
-        .filter((data) => selectedDate.diff(data.date, "day") >= 0)
+        .filter((data) => selectedDate.diff(data.date, "hour") >= 0)
         .reduce((prev, curr) => prev + curr.amount, 0),
     [income, expense, selectedDate]
   );
@@ -82,7 +82,7 @@ export const DailyReport = () => {
   };
 
   return (
-    <>
+    <div className="min-h-content h-full relative">
       <main>
         {showDatePickerModal && (
           <DateChangeModal setShowModal={setShowDatePickerModal} />
@@ -128,13 +128,13 @@ export const DailyReport = () => {
             className="fa-solid fa-arrow-right pt-1 cursor-pointer"
           ></i>
         </section>
-        <section>
+        <section className="md:grid md:grid-cols-2">
           <div className="bg-green-100 m-2 rounded-md">
             <div className="flex justify-between p-2 m-2 mb-0 border-b-2 border-green-600">
               <h3 className="text-lg">Income</h3>
               <span>₹{totalIncome.toFixed(2)}</span>
             </div>
-            <div className="p-4">
+            <div className="p-4 overflow-y-scroll max-h-64 md:max-h-full md:overflow-y-auto">
               <DataItems
                 list={incomeData}
                 editRecord={editRecord}
@@ -147,7 +147,7 @@ export const DailyReport = () => {
               <h3 className="text-lg">Expense</h3>
               <span>₹{totalExpense.toFixed(2)}</span>
             </div>
-            <div className="p-4">
+            <div className="p-4 overflow-y-scroll max-h-64 md:max-h-full md:overflow-y-auto">
               <DataItems
                 list={expenseData}
                 editRecord={editRecord}
@@ -159,7 +159,7 @@ export const DailyReport = () => {
       </main>
       <button
         onClick={addNewEntry}
-        className="bg-green-900 text-green-100 p-4 px-5 rounded-full fixed bottom-36 right-6 cursor-pointer hover:shadow-xl"
+        className="bg-green-900 text-green-100 p-3 px-4 md:p-4 md:px-5 rounded-full absolute right-2 bottom-2 cursor-pointer hover:shadow-xl"
       >
         <i className="fa-solid fa-add"></i>
       </button>
@@ -169,7 +169,7 @@ export const DailyReport = () => {
           initialData={dataRef.current}
         />
       )}
-    </>
+    </div>
   );
 };
 

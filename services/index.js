@@ -65,17 +65,17 @@ const deleteItem = async (item, userId, dataDispatch) => {
 
 const getExpenseData = async (userId, dataDispatch) => {
   const query = gql`
-        query ExpenseData {
-            user_data(where: {userId: {_eq: "${userId}"}, route: {_eq: "expense"}}) {
-              id
-              date
-              route
-              name
-              amount
-              description
-            }
-          }
-          `;
+    query ExpenseData {
+      user_data(where: {_and: {route: {_eq: "expense"}, userId: {_eq: "${userId}"}}}) {
+          id
+          date
+          route
+          name
+          amount
+          description
+        }
+      }
+      `;
   const { data, error } = await nhost.graphql.request(query);
   if (data) {
     return dataDispatch({
@@ -92,7 +92,7 @@ const getExpenseData = async (userId, dataDispatch) => {
 const getIncomeData = async (userId, dataDispatch) => {
   const query = gql`
     query IncomeData {
-        user_data(where: {userId: {_eq: "${userId}"}, route: {_eq: "income"}}) {
+      user_data(where: {_and: {route: {_eq: "income"}, userId: {_eq: "${userId}"}}}) {
           id
           date
           route
@@ -136,7 +136,10 @@ const updateItem = async (item, userId, dataDispatch) => {
   const { data, error } = await nhost.graphql.request(query);
   if (data) {
     if (data?.update_user_data?.affected_rows) {
-      return dataDispatch({ type: DataActions.UPDATE_INCOME_EXPENSE, payload });
+      return dataDispatch({
+        type: DataActions.UPDATE_INCOME_EXPENSE,
+        payload: item,
+      });
     } else {
       // TODO: handle as error
     }

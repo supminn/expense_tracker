@@ -30,7 +30,7 @@ export const Header = () => {
         <Link href={"#"}>
           <a
             onClick={() => setShowLogoutModal(true)}
-            className="fas fa-user fa-lg px-2 text-green-100"
+            className="fa-solid fa-right-from-bracket fa-lg px-2 text-green-100"
           ></a>
         </Link>
         {showLogoutModal && <LogoutModal setShowModal={setShowLogoutModal} />}

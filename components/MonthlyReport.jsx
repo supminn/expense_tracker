@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import { useDataContext } from "../context/dataContext";
 import { DataActions } from "../reducer/actions";
@@ -36,7 +37,7 @@ export const MonthlyReport = ({ setRoute }) => {
         ...incomeData.map((data) => formatedDate(data.date, "DD-MMM-YYYY")),
         ...expenseData.map((data) => formatedDate(data.date, "DD-MMM-YYYY")),
       ]),
-    ].reverse();
+    ].sort((a, b) => dayjs(b) - dayjs(a));
   }, [incomeData, expenseData]);
 
   const gotoDate = (date) => {
@@ -110,9 +111,18 @@ export const MonthlyReport = ({ setRoute }) => {
 };
 
 const MonthlyItem = ({ dataList, title }) => {
+  const balance = useMemo(
+    () => dataList.reduce((prev, curr) => prev + curr.amount, 0),
+    [dataList]
+  );
   return (
     <div className={`w-full px-1 ${title === "Expense" ? "pr-2" : "pl-2"}`}>
       <h3 className="italic text-center mb-1">{title}</h3>
+      {balance > 0 && (
+        <small className="flex justify-center">
+          Balance: ₹{balance.toFixed(2)}
+        </small>
+      )}
       {dataList.map((data) => (
         <div key={data.id} className="flex justify-between text-sm">
           <span>{data.name}</span>

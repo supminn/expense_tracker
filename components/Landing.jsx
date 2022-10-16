@@ -8,6 +8,7 @@ import { Header } from "./Header";
 import { MonthlyReport } from "./MonthlyReport";
 import { YearlyReport } from "./YearlyReport";
 
+const routes = ["daily", "monthly", "yearly"];
 export const Landing = () => {
   const [route, setRoute] = useState("daily");
   const { dataDispatch } = useDataContext();
@@ -27,37 +28,20 @@ export const Landing = () => {
   return (
     <>
       <Header />
-      <nav className="p-4 flex justify-between">
-        <button
-          onClick={() => setRoute("daily")}
-          className={`p-2 mx-2 rounded-md cursor-pointer ${
-            route === "daily"
-              ? "bg-green-800 text-amber-200"
-              : "bg-amber-200 text-green-800"
-          }`}
-        >
-          Daily
-        </button>
-        <button
-          onClick={() => setRoute("monthly")}
-          className={`p-2 mx-2 rounded-md cursor-pointer ${
-            route === "monthly"
-              ? "bg-green-800 text-amber-200"
-              : "bg-amber-200 text-green-800"
-          }`}
-        >
-          Monthly
-        </button>
-        <button
-          onClick={() => setRoute("yearly")}
-          className={`p-2 mx-2 rounded-md cursor-pointer ${
-            route === "yearly"
-              ? "bg-green-800 text-amber-200"
-              : "bg-amber-200 text-green-800"
-          }`}
-        >
-          Yearly
-        </button>
+      <nav className="p-4 flex justify-between w-fit m-auto">
+        {routes.map((value) => (
+          <button
+            key={value}
+            onClick={() => setRoute(value)}
+            className={`p-2 mx-2 rounded-md cursor-pointer capitalize ${
+              route === value
+                ? "bg-green-800 text-amber-200"
+                : "bg-amber-200 text-green-800"
+            }`}
+          >
+            {value}
+          </button>
+        ))}
       </nav>
       {route === "daily" && <DailyReport />}
       {route === "monthly" && <MonthlyReport setRoute={setRoute} />}
