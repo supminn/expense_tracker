@@ -3,18 +3,24 @@ import Image from "next/image";
 import { useState } from "react";
 import { LogoutModal } from "./Modals/Logout";
 import { ComingSoonModal } from "./Modals/ComingSoon";
+import { useAuthContext } from "../context/authProvider";
 
 export const Header = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showComingSoonModal, setShowComingSoonModal] = useState(false);
+  const {
+    authState: {
+      userData: { displayName },
+    },
+  } = useAuthContext();
   return (
     <nav className="z-10 flex justify-between items-center h-16 sticky top-0 mb-1 p-4 pl-3 bg-green-900 rounded-b-lg">
       <div className="flex justify-center items-center cursor-pointer ">
         <div className="bg-green-900 mt-1">
           <Image src="/logo.png" alt="Logo" height={50} width={75} />
         </div>
-        <h2 className="font-cursive text-2xl px-2 text-green-100">
-          Welcome User!
+        <h2 className="font-cursive text-xl md:text-2xl px-2 text-green-100">
+          Welcome {displayName ?? "User"}!
         </h2>
       </div>
       <div className="flex justify-around">
