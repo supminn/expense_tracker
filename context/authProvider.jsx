@@ -6,7 +6,6 @@ import {
   useUserData,
   useAccessToken,
 } from "@nhost/nextjs";
-import { nhost } from "../services";
 import { authReducer, initialAuthState } from "../reducer/authReducer";
 import { AuthActions } from "../reducer/actions";
 
@@ -17,13 +16,12 @@ const AuthProvider = ({ children }) => {
   const { signUpEmailPassword } = useSignUpEmailPassword();
   const { signInEmailPassword } = useSignInEmailPassword();
   const { signOut } = useSignOut();
-
   const user = useUserData();
   const accessToken = useAccessToken();
 
   useEffect(() => {
     if (accessToken && user) {
-      // add loader and show in UI
+      // TODO: add separate loader and show in UI
       authDispatch({
         type: AuthActions.SET_USER_DATA,
         payload: { user: user, authToken: accessToken },

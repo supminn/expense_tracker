@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
@@ -22,7 +23,7 @@ export default function Register() {
 
   useEffect(() => {
     if (authToken) {
-      router.push("/");
+      router.push("/home");
     }
   }, [authToken, router]);
 
@@ -42,7 +43,7 @@ export default function Register() {
     } else {
       const { isSuccess } = await registerNewUser({ password, email, name });
       if (isSuccess) {
-        router.reload();
+        router.push("/home");
       }
     }
   };
@@ -56,82 +57,87 @@ export default function Register() {
     else return true;
   };
   return (
-    <div className="shadow-xl p-2 m-auto mt-10 bg-gray-100 w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center">
-      <h2 className="text-2xl font-medium m-3 text-green-900">
-        Sign <span className="text-amber-700">up</span>
-      </h2>
-      <form
-        className="border border-green-900 rounded-sm p-6 md:w-3/4 m-auto lg:w-8/12"
-        onSubmit={signupHandler}
-      >
-        <div className="p-2">
-          <input
-            required
-            className="p-2 rounded-sm border border-transparent  focus:outline-none focus:ring-2 focus:ring-green-900 w-3/4"
-            type="text"
-            value={name}
-            onChange={(e) =>
-              setCredentials((credentials) => ({
-                ...credentials,
-                name: e.target.value,
-              }))
-            }
-            placeholder="Name"
-          />
-          <span className="p-2 bg-green-900 text-green-50 rounded-sm">
-            <i className="fas fa-address-card fa-lg"></i>
-          </span>
-        </div>
-        <div className="p-2">
-          <span className="p-2 bg-green-900 text-green-50 rounded-sm">
-            <i className="fas fa-envelope fa-lg"></i>
-          </span>
-          <input
-            required
-            className="p-2 rounded-sm border border-transparent focus:outline-none focus:ring-2 focus:ring-green-900 w-3/4"
-            type="email"
-            value={email}
-            onChange={(e) =>
-              setCredentials((credentials) => ({
-                ...credentials,
-                email: e.target.value,
-              }))
-            }
-            placeholder="Email address"
-          />
-        </div>
-        <Password userValue={password} setCredentials={setCredentials} />
-        <Password
-          userValue={confirmPassword}
-          setCredentials={setCredentials}
-          label="confirmPassword"
-          placeholder="Confirm Password"
-        />
-        {error && <p className="text-red-600 pt-3">{error}</p>}
-        <button
-          type="submit"
-          className={`border-green-800 border-2 p-1 m-1 rounded-sm bg-green-800 text-amber-200 font-medium hover:bg-green-900 hover:-translate-y-0.5 mt-2`}
+    <>
+      <Head>
+        <title>FINSAVER | Register</title>
+      </Head>
+      <div className="shadow-xl p-2 m-auto mt-10 bg-gray-100 w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center">
+        <h2 className="text-2xl font-medium m-3 text-green-900">
+          Sign <span className="text-amber-700">up</span>
+        </h2>
+        <form
+          className="border border-green-900 rounded-sm p-6 md:w-3/4 m-auto lg:w-8/12"
+          onSubmit={signupHandler}
         >
-          Register
-        </button>
-        {registrationError && (
-          <p className="text-red-600 text-lg pt-3">{registrationError}</p>
-        )}
-      </form>
-      <div className="text-lg font-semibold p-2 md:w-3/4 lg:w-8/12 m-auto">
-        Already a member? <SecondaryButton text="Login" href="/login" />
-      </div>
-      {isLoading && (
-        <div className="flex justify-center">
-          <RotatingLines
-            strokeColor="#166534"
-            strokeWidth="5"
-            animationDuration="0.75"
-            width="50"
-            visible={true}
+          <div className="p-2">
+            <input
+              required
+              className="p-2 rounded-sm border border-transparent  focus:outline-none focus:ring-2 focus:ring-green-900 w-3/4"
+              type="text"
+              value={name}
+              onChange={(e) =>
+                setCredentials((credentials) => ({
+                  ...credentials,
+                  name: e.target.value,
+                }))
+              }
+              placeholder="Name"
+            />
+            <span className="p-2 bg-green-900 text-green-50 rounded-sm">
+              <i className="fas fa-address-card fa-lg"></i>
+            </span>
+          </div>
+          <div className="p-2">
+            <span className="p-2 bg-green-900 text-green-50 rounded-sm">
+              <i className="fas fa-envelope fa-lg"></i>
+            </span>
+            <input
+              required
+              className="p-2 rounded-sm border border-transparent focus:outline-none focus:ring-2 focus:ring-green-900 w-3/4"
+              type="email"
+              value={email}
+              onChange={(e) =>
+                setCredentials((credentials) => ({
+                  ...credentials,
+                  email: e.target.value,
+                }))
+              }
+              placeholder="Email address"
+            />
+          </div>
+          <Password userValue={password} setCredentials={setCredentials} />
+          <Password
+            userValue={confirmPassword}
+            setCredentials={setCredentials}
+            label="confirmPassword"
+            placeholder="Confirm Password"
           />
+          {error && <p className="text-red-600 pt-3">{error}</p>}
+          <button
+            type="submit"
+            className={`border-green-800 border-2 p-1 m-1 rounded-sm bg-green-800 text-amber-200 font-medium hover:bg-green-900 hover:-translate-y-0.5 mt-2`}
+          >
+            Register
+          </button>
+          {registrationError && (
+            <p className="text-red-600 text-lg pt-3">{registrationError}</p>
+          )}
+        </form>
+        <div className="text-lg font-semibold p-2 md:w-3/4 lg:w-8/12 m-auto">
+          Already a member? <SecondaryButton text="Login" href="/login" />
         </div>
-      )}
-    </div>
+        {isLoading && (
+          <div className="flex justify-center">
+            <RotatingLines
+              strokeColor="#166534"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="50"
+              visible={true}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
 }

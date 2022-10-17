@@ -159,7 +159,7 @@ export const DailyReport = () => {
       </main>
       <button
         onClick={addNewEntry}
-        className="bg-green-900 text-green-100 p-3 px-4 md:p-4 md:px-5 rounded-full absolute right-2 bottom-2 cursor-pointer hover:shadow-xl"
+        className="bg-green-900 text-green-100 p-3 px-4 md:p-4 md:px-5 rounded-full absolute right-2 bottom-2 lg:right-6 cursor-pointer hover:shadow-xl"
       >
         <i className="fa-solid fa-add"></i>
       </button>

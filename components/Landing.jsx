@@ -1,5 +1,6 @@
 import { useUserId } from "@nhost/react";
 import { useEffect, useState } from "react";
+import { Watch } from "react-loader-spinner";
 import { useDataContext } from "../context/dataContext";
 import { DataActions } from "../reducer/actions";
 import { getExpenseData, getIncomeData } from "../services";
@@ -11,20 +12,21 @@ import { YearlyReport } from "./YearlyReport";
 const routes = ["daily", "monthly", "yearly"];
 export const Landing = () => {
   const [route, setRoute] = useState("daily");
+  const [isLoading, setIsLoading] = useState(false);
   const { dataDispatch } = useDataContext();
   const userId = useUserId();
 
   useEffect(() => {
     (async () => {
       if (userId) {
-        dataDispatch({ type: DataActions.SET_LOADER, payload: true });
+        setIsLoading(true);
         await getIncomeData(userId, dataDispatch);
         await getExpenseData(userId, dataDispatch);
-        dataDispatch({ type: DataActions.SET_LOADER, payload: false });
+        setIsLoading(false);
       }
     })();
   }, [userId, dataDispatch]);
-  // TODO: Add Loader
+
   return (
     <>
       <Header />
@@ -43,9 +45,24 @@ export const Landing = () => {
           </button>
         ))}
       </nav>
-      {route === "daily" && <DailyReport />}
-      {route === "monthly" && <MonthlyReport setRoute={setRoute} />}
-      {route === "yearly" && <YearlyReport setRoute={setRoute} />}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-96 w-full">
+          <Watch
+            height="80"
+            width="80"
+            radius="48"
+            color="#176134"
+            ariaLabel="watch-loading"
+            visible={true}
+          />
+        </div>
+      ) : (
+        <>
+          {route === "daily" && <DailyReport />}
+          {route === "monthly" && <MonthlyReport setRoute={setRoute} />}
+          {route === "yearly" && <YearlyReport setRoute={setRoute} />}
+        </>
+      )}
     </>
   );
 };

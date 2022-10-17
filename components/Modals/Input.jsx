@@ -1,11 +1,12 @@
 import { useUserId } from "@nhost/react";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import { useDataContext } from "../../context/dataContext";
 import { addNewItem, updateItem } from "../../services";
 
 export const InputModal = ({ setShowModal, initialData }) => {
   const {
-    dataState: { selectedDate },
+    dataState: { selectedDate, isLoading },
     dataDispatch,
   } = useDataContext();
   const userId = useUserId();
@@ -15,7 +16,7 @@ export const InputModal = ({ setShowModal, initialData }) => {
     setData((data) => ({ ...data, [tag]: value }));
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const item = {
       ...data,
@@ -23,11 +24,13 @@ export const InputModal = ({ setShowModal, initialData }) => {
       amount: Number(data.amount),
     };
     if (data.id) {
-      updateItem(item, userId, dataDispatch);
+      await updateItem(item, userId, dataDispatch);
     } else {
-      addNewItem(item, userId, dataDispatch);
+      await addNewItem(item, userId, dataDispatch);
     }
-    setShowModal(false);
+    if (!isLoading) {
+      setShowModal(false);
+    }
   };
   return (
     <div
@@ -112,7 +115,18 @@ export const InputModal = ({ setShowModal, initialData }) => {
                 type="submit"
                 className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-800 sm:ml-3 sm:w-auto sm:text-sm"
               >
-                Save
+                {isLoading ? (
+                  <ThreeDots
+                    height="20"
+                    width="20"
+                    radius="8"
+                    color="white"
+                    ariaLabel="three-dots-loading"
+                    visible={true}
+                  />
+                ) : (
+                  "Save"
+                )}
               </button>
               <button
                 onClick={() => setShowModal(false)}
