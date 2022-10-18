@@ -57,13 +57,13 @@ export const YearlyReport = ({ setRoute }) => {
 
 const MonthlySummary = ({ month, setRoute }) => {
   const {
-    dataState: { selectedDate, incomeData: income, expenseData: expense },
+    dataState: { selectedDate, incomeData, expenseData },
     dataDispatch,
   } = useDataContext();
 
   const totalIncome = useMemo(
     () =>
-      income
+      incomeData
         .filter(
           (data) =>
             formatedDate(data.date, "YYYY") ===
@@ -72,12 +72,12 @@ const MonthlySummary = ({ month, setRoute }) => {
         )
         .reduce((prev, curr) => prev + curr.amount, 0)
         .toFixed(2),
-    [income, selectedDate, month]
+    [incomeData, selectedDate, month]
   );
 
   const totalExpense = useMemo(
     () =>
-      expense
+      expenseData
         .filter(
           (data) =>
             formatedDate(data.date, "YYYY") ===
@@ -86,7 +86,7 @@ const MonthlySummary = ({ month, setRoute }) => {
         )
         .reduce((prev, curr) => prev + curr.amount, 0)
         .toFixed(2),
-    [expense, selectedDate, month]
+    [expenseData, selectedDate, month]
   );
 
   const totalBalance = useMemo(
