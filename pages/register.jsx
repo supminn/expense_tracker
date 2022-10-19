@@ -51,8 +51,9 @@ export default function Register() {
 
   const isPasswordValid = () => {
     if (
-      password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/) ==
-      null
+      password.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&#$^&*()]{8,}$/
+      ) == null
     )
       return false;
     else return true;
