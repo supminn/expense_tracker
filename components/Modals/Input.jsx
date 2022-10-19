@@ -103,6 +103,7 @@ export const InputModal = ({ setShowModal, initialData }) => {
                   className="text-gray-800 border-2 p-2 m-2 rounded-md md:w-full resize-none"
                   rows={3}
                   cols={23}
+                  value={data.description}
                   placeholder="Description"
                   onChange={(e) =>
                     setDataHandler("description", e.target.value)
