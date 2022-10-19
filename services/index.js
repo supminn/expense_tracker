@@ -31,8 +31,11 @@ const addNewItem = async (item, userId, dataDispatch) => {
     return dataDispatch({ type, payload });
   }
   if (error) {
-    // TODO: handle error here
     console.error("error in addNewItem: ", error);
+    return dataDispatch({
+      type: DataActions.SET_ERROR,
+      payload: "Oh Snap! We were unable to add this item.",
+    });
   }
 };
 
@@ -54,12 +57,18 @@ const deleteItem = async (item, userId, dataDispatch) => {
           : DataActions.REMOVE_INCOME;
       return dataDispatch({ type, payload: item });
     } else {
-      // TODO: handle as error
+      return dataDispatch({
+        type: DataActions.SET_ERROR,
+        payload: "Oops! No such data was availble to delete",
+      });
     }
   }
   if (error) {
-    // TODO: handle error here
     console.error("error in deleteItem: ", error);
+    return dataDispatch({
+      type: DataActions.SET_ERROR,
+      payload: "Oh Snap! We were unable to delete this item.",
+    });
   }
 };
 
@@ -84,8 +93,11 @@ const getExpenseData = async (userId, dataDispatch) => {
     });
   }
   if (error) {
-    // TODO: handle error here
     console.error("error in getExpenseData: ", error);
+    return dataDispatch({
+      type: DataActions.SET_ERROR,
+      payload: "Oh Snap! We were unable to fetch data.",
+    });
   }
 };
 
@@ -110,8 +122,11 @@ const getIncomeData = async (userId, dataDispatch) => {
     });
   }
   if (error) {
-    // TODO: handle error here
     console.error("error in getIncomeData: ", error);
+    return dataDispatch({
+      type: DataActions.SET_ERROR,
+      payload: "Oh Snap! We were unable to fetch data.",
+    });
   }
 };
 
@@ -141,12 +156,18 @@ const updateItem = async (item, userId, dataDispatch) => {
         payload: item,
       });
     } else {
-      // TODO: handle as error
+      return dataDispatch({
+        type: DataActions.SET_ERROR,
+        payload: "Oops! We were unable to find such item for updation.",
+      });
     }
   }
   if (error) {
-    // TODO: handle error here
     console.error("error in updateItem: ", error);
+    return dataDispatch({
+      type: DataActions.SET_ERROR,
+      payload: "Oh Snap! We were unable to update this item.",
+    });
   }
 };
 

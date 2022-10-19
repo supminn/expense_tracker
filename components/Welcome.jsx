@@ -20,11 +20,12 @@ export const Welcome = () => {
           </p>
         </div>
       </section>
-      <section className="text-center text-xl">
-        <PrimaryButton text="Login" href="/login" />
+      <section className="text-center text-2xl p-2">
+        <PrimaryButton text="Login" href="/login" />{" "}
+        <span className="px-2 pr-3 fas text-amber-800">OR</span>
         <SecondaryButton text="Register" href="/register" />
       </section>
-      <h2 className="text-3xl text-green-900 font-bold text-center mt-16 mb-2">
+      <h2 className="text-3xl text-green-900 font-bold text-center mt-14 mb-2">
         🌟 Features of FinSaver 🌟
       </h2>
       <section className="md:grid md:grid-cols-3">

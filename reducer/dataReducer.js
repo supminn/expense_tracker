@@ -3,6 +3,7 @@ import { DataActions } from "./actions";
 
 export const initialDataState = {
   isLoading: false,
+  error: "",
   selectedDate: dayjs(),
   incomeData: [],
   expenseData: [],
@@ -12,6 +13,9 @@ export const dataReducer = (state, { type, payload }) => {
   switch (type) {
     case DataActions.SET_LOADER: {
       return { ...state, isLoading: true };
+    }
+    case DataActions.SET_ERROR: {
+      return { ...state, error: payload };
     }
     case DataActions.SET_SELECTED_DATE: {
       return { ...state, selectedDate: dayjs(payload) };

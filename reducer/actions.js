@@ -7,6 +7,7 @@ export const AuthActions = {
 
 export const DataActions = {
   SET_LOADER: "SET_LOADER",
+  SET_ERROR: "SET_ERROR",
   SET_SELECTED_DATE: "SET_SELECTED_DATE",
   SET_INCOME_DATA: "SET_INCOME_DATA",
   SET_EXPENSE_DATA: "SET_EXPENSE_DATA",
@@ -15,4 +16,8 @@ export const DataActions = {
   REMOVE_EXPENSE: "REMOVE_EXPENSE",
   REMOVE_INCOME: "REMOVE_INCOME",
   UPDATE_INCOME_EXPENSE: "UPDATE_INCOME_EXPENSE",
+};
+
+export const clearErrorMessage = (dataDispatch) => {
+  dataDispatch({ type: DataActions.SET_ERROR, payload: "" });
 };
