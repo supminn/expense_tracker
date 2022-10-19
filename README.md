@@ -3,16 +3,40 @@
 The idea is to build an expense tracker application that would have persistent data for a given user.
 It would collect data about income and expenses and represent a summary to the user.
 
-This project would be a part of [Hack-R-Play](https://hustles.reactplay.io/hackrplay/2022/home)
+This project has been developed as a part of [Hack-R-Play](https://hustles.reactplay.io/hackrplay/2022/home)
 
 [Project Idea](https://hustles.reactplay.io/hackrplay/2022/ideas/014e495d-0102-4333-a58c-b1fb8a55af48)
 
 ## Tech stack
 
-- Next.JS
-- nHost (backend)
-- tailwind?
--
+- Next.JS for the user-facing interface.
+- `nhost` for data storage and authentication.
+- TailwindCSS for styling.
+
+## Features of FinSaver
+
+- Option to add, edit and delete item entries for income and expense.
+- Authenticated users get a private space to manage their expenses.
+- Daily, monthly and yearly views to look at the spends
+- Responsive design to handle the smooth experience of the app on all kinds of devices and screens.
+
+### Upcoming features
+
+- Preview monthly and yearly logs and download data as PDFs.
+- Categorization of income and expenses.
+- Graphical representation of expenses from different categories.
+
+## Contributing to this project
+
+Any kind of positive contribution is welcome! Please help us to grow by contributing to the project.
+If you wish to contribute, you can,
+
+- Suggest a Feature
+- Test the app, and help it improve.
+- Improve the app, fix bugs, etc.
+- Improve documentation.
+
+> Please read CONTRIBUTING for details on submitting issues and pull requests.
 
 ## Next.JS Application
 
