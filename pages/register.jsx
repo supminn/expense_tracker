@@ -129,21 +129,21 @@ export default function Register() {
           {registrationError && (
             <p className="text-red-600 text-lg pt-3">{registrationError}</p>
           )}
+          {isLoading && (
+            <div className="flex justify-center">
+              <RotatingLines
+                strokeColor="#166534"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="50"
+                visible={true}
+              />
+            </div>
+          )}
         </form>
         <div className="text-lg font-semibold p-2 md:w-3/4 lg:w-8/12 m-auto">
           Already a member? <SecondaryButton text="Login" href="/login" />
         </div>
-        {isLoading && (
-          <div className="flex justify-center">
-            <RotatingLines
-              strokeColor="#166534"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="50"
-              visible={true}
-            />
-          </div>
-        )}
       </div>
     </>
   );

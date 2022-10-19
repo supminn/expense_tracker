@@ -88,24 +88,23 @@ export default function Login() {
             Use test credentials
           </p>
           {error && <p className="text-red-600 text-lg pt-3">{error}</p>}
+          {isLoading && (
+            <div className="flex justify-center">
+              <RotatingLines
+                strokeColor="#166534"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="50"
+                visible={true}
+              />
+            </div>
+          )}
         </form>
 
         <div className="p-2 md:w-3/4 lg:w-8/12 m-auto">
           <b className="text-lg">Not a member? </b>
           <SecondaryButton text="Register" href="/register" />
         </div>
-
-        {isLoading && (
-          <div className="flex justify-center">
-            <RotatingLines
-              strokeColor="#166534"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="50"
-              visible={true}
-            />
-          </div>
-        )}
       </div>
     </>
   );
