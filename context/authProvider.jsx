@@ -21,7 +21,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (accessToken && user) {
-      // TODO: add separate loader and show in UI
       authDispatch({
         type: AuthActions.SET_USER_DATA,
         payload: { user: user, authToken: accessToken },

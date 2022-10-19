@@ -2,7 +2,6 @@ import { useUserId } from "@nhost/react";
 import { useEffect, useState } from "react";
 import { Watch } from "react-loader-spinner";
 import { useDataContext } from "../context/dataContext";
-import { DataActions } from "../reducer/actions";
 import { getExpenseData, getIncomeData } from "../services";
 import { DailyReport } from "./DailyReport";
 import { Header } from "./Header";

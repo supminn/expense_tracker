@@ -1,7 +1,3 @@
-import { useRouter } from "next/router";
-import { RotatingLines } from "react-loader-spinner";
-import { useAuthContext } from "../../context/authProvider";
-
 export const ComingSoonModal = ({ setShowModal }) => {
   return (
     <div

@@ -4,6 +4,7 @@ import { Password, SecondaryButton } from "../components";
 import { RotatingLines } from "react-loader-spinner";
 import { useAuthContext } from "../context/authProvider";
 import Head from "next/head";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -36,6 +37,11 @@ export default function Login() {
         <title>FINSAVER | Login</title>
       </Head>
       <div className="shadow-xl p-2 m-auto mt-10 w-full sm:w-11/12 md:w-3/4 lg:w-8/12 text-center bg-gray-100">
+        <Link href={"/"} className="p-2 md:w-3/4 lg:w-8/12 m-auto">
+          <a className="fa-solid fa-house fa-lg px-2 text-green-900 relative">
+            <span className="text-sm p-2">Back to Home</span>
+          </a>
+        </Link>
         <h2 className="text-2xl font-medium m-3 text-green-900">
           Login to <span className="text-amber-700">continue!</span>
         </h2>
@@ -64,6 +70,7 @@ export default function Login() {
           <Password userValue={password} setCredentials={setCredentials} />
           <button
             type="submit"
+            disabled={isLoading}
             className={`border-green-800 border-2 p-1 m-1 rounded-sm bg-green-800 text-amber-200 font-medium hover:bg-green-900 hover:-translate-y-0.5 mt-2`}
           >
             Login
